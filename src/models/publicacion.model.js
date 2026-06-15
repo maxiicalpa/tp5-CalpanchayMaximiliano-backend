@@ -14,6 +14,7 @@ const publicacion = sequelize.define('publicacion', {
     timestamps: true, // Crea automáticamente los campos createdAt y updatedAt
 });
 
+empleado.hasMany(publicacion, { foreignKey: 'empleadoId', as: 'publicaciones' });
 publicacion.belongsTo(empleado, { as: 'empleado' });
 
 module.exports = publicacion;

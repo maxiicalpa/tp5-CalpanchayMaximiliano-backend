@@ -1,0 +1,666 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API de Agentes",
+    "description": "Documentación de la API para la gestión de agentes.",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Socio",
+      "description": "Operaciones relacionadas con los socios."
+    },
+    {
+      "name": "Transaccion",
+      "description": "Operaciones relacionadas con las transacciones."
+    },
+    {
+      "name": "Empleado",
+      "description": "Operaciones relacionadas con los empleados."
+    },
+    {
+      "name": "Publicacion",
+      "description": "Operaciones relacionadas con las publicaciones."
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/api/socio/": {
+      "post": {
+        "tags": [
+          "Socio"
+        ],
+        "summary": "Agregar un socio",
+        "description": "Agrega un socio a lista de socios.",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos del socio a agregar.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Socio"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Socio agregado correctamente.",
+            "schema": {
+              "$ref": "#/definitions/Socio"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Socio"
+        ],
+        "summary": "Obtener todos los socios",
+        "description": "Retorna una lista de todos los socios.",
+        "responses": {
+          "200": {
+            "description": "Lista de socios obtenida con éxito.",
+            "schema": {
+              "$ref": "#/definitions/Socio"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/socio/{id}": {
+      "delete": {
+        "tags": [
+          "Socio"
+        ],
+        "summary": "Eliminar un socio",
+        "description": "Elimina un socio de la lista de socios.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID del socio a eliminar."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Socio eliminado correctamente.",
+            "schema": {
+              "$ref": "#/definitions/Socio"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Socio"
+        ],
+        "summary": "Editar un socio",
+        "description": "Edita un socio de la lista de socios.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID del socio a editar."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Socio editado correctamente.",
+            "schema": {
+              "$ref": "#/definitions/Socio"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/socio/activos": {
+      "get": {
+        "tags": [
+          "Socio"
+        ],
+        "summary": "Obtener todos los socios activos",
+        "description": "Retorna una lista de todos los socios activos.",
+        "responses": {
+          "200": {
+            "description": "Lista de socios activos obtenida con éxito.",
+            "schema": {
+              "$ref": "#/definitions/Socio"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/transaccion/": {
+      "post": {
+        "tags": [
+          "Transaccion"
+        ],
+        "summary": "Agregar una transaccion",
+        "description": "Agrega una transaccion a lista de transacciones.",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos de la transaccion a agregar.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Transaccion"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaccion agregada correctamente.",
+            "schema": {
+              "$ref": "#/definitions/Transaccion"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Transaccion"
+        ],
+        "summary": "Obtener todas las transacciones",
+        "description": "Retorna una lista de todas las transacciones.",
+        "responses": {
+          "200": {
+            "description": "Lista de transacciones obtenida con éxito.",
+            "schema": {
+              "$ref": "#/definitions/Transaccion"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/transaccion/{emailCliente}": {
+      "get": {
+        "tags": [
+          "Transaccion"
+        ],
+        "summary": "Obtener todas las transacciones",
+        "description": "Retorna una lista de todas las transacciones.",
+        "parameters": [
+          {
+            "name": "emailCliente",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de transacciones obtenida con éxito.",
+            "schema": {
+              "$ref": "#/definitions/Transaccion"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/transaccion/{idiomaOrigen}/{idiomaDestino}": {
+      "get": {
+        "tags": [
+          "Transaccion"
+        ],
+        "summary": "Obtener todas las transacciones",
+        "description": "Retorna una lista de todas las transacciones.",
+        "parameters": [
+          {
+            "name": "idiomaOrigen",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idiomaDestino",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de transacciones obtenida con éxito.",
+            "schema": {
+              "$ref": "#/definitions/Transaccion"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/empleado/": {
+      "post": {
+        "tags": [
+          "Empleado"
+        ],
+        "summary": "Agregar un empleado",
+        "description": "Agrega un empleado a lista de empleados.",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos del empleado a agregar.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Empleado"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Empleado agregado correctamente.",
+            "schema": {
+              "$ref": "#/definitions/Empleado"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Empleado"
+        ],
+        "summary": "Obtener todos los empleados",
+        "description": "Retorna una lista de todos los empleados.",
+        "responses": {
+          "200": {
+            "description": "Lista de empleados obtenida con éxito.",
+            "schema": {
+              "$ref": "#/definitions/Empleado"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/empleado/{id}": {
+      "get": {
+        "tags": [
+          "Empleado"
+        ],
+        "summary": "Obtener un empleado",
+        "description": "Retorna un empleado por su ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID del empleado a obtener."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Empleado obtenido con éxito.",
+            "schema": {
+              "$ref": "#/definitions/Empleado"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/publicacion/": {
+      "post": {
+        "tags": [
+          "Publicacion"
+        ],
+        "summary": "Agregar una publicacion",
+        "description": "Agrega una publicacion a lista de publicaciones.",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos de la publicacion a agregar.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Publicacion"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publicacion agregada correctamente.",
+            "schema": {
+              "$ref": "#/definitions/Publicacion"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Publicacion"
+        ],
+        "summary": "Obtener todas las publicaciones",
+        "description": "Retorna una lista de todas las publicaciones.",
+        "responses": {
+          "200": {
+            "description": "Lista de publicaciones obtenida con éxito.",
+            "schema": {
+              "$ref": "#/definitions/Publicacion"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/publicacion/{id}": {
+      "delete": {
+        "tags": [
+          "Publicacion"
+        ],
+        "summary": "Eliminar una publicacion",
+        "description": "Elimina una publicacion de la lista de publicaciones.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de la publicacion a eliminar."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publicacion eliminada correctamente.",
+            "schema": {
+              "$ref": "#/definitions/Publicacion"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Publicacion"
+        ],
+        "summary": "Editar una publicacion",
+        "description": "Edita una publicacion de la lista de publicaciones.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de la publicacion a editar."
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "empleado": {
+                  "example": "any"
+                },
+                "empleadoId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publicacion editada correctamente.",
+            "schema": {
+              "$ref": "#/definitions/Publicacion"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/publicacion/filtrar": {
+      "post": {
+        "tags": [
+          "Publicacion"
+        ],
+        "summary": "Obtener todas las publicaciones filtradas",
+        "description": "Retorna una lista de todas las publicaciones filtradas por título y vigencia.",
+        "parameters": [
+          {
+            "name": "titulo",
+            "in": "query",
+            "description": "Título de la publicación a buscar.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "vigente",
+            "in": "query",
+            "description": "Vigencia de la publicación.",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "titulo": {
+                  "example": "any"
+                },
+                "vigente": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de publicaciones obtenida con éxito.",
+            "schema": {
+              "$ref": "#/definitions/Publicacion"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Socio": {
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "type": "string",
+          "example": "Juan"
+        },
+        "apellido": {
+          "type": "string",
+          "example": "Pérez"
+        },
+        "foto": {
+          "type": "string",
+          "example": "foto.jpg"
+        },
+        "dni": {
+          "type": "string",
+          "example": "12345678"
+        },
+        "numeroSocio": {
+          "type": "number",
+          "example": 12345
+        }
+      }
+    },
+    "Transaccion": {
+      "type": "object",
+      "properties": {
+        "idiomaOrigen": {
+          "type": "string",
+          "example": "es"
+        },
+        "textoOrigen": {
+          "type": "number",
+          "example": 12345
+        },
+        "idiomaDestino": {
+          "type": "string",
+          "example": "en"
+        },
+        "textoDestino": {
+          "type": "number",
+          "example": 12345
+        },
+        "fecha": {
+          "type": "string",
+          "example": "2022-01-01"
+        },
+        "emailCliente": {
+          "type": "string",
+          "example": "[EMAIL_ADDRESS]"
+        }
+      }
+    },
+    "Empleado": {
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "type": "string",
+          "example": "Juan"
+        },
+        "apellido": {
+          "type": "string",
+          "example": "Pérez"
+        },
+        "dni": {
+          "type": "string",
+          "example": "12345678"
+        },
+        "email": {
+          "type": "number",
+          "example": 12345
+        }
+      }
+    },
+    "publicacion": {
+      "type": "object",
+      "properties": {
+        "titulo": {
+          "type": "string",
+          "example": "Juan"
+        },
+        "contenido": {
+          "type": "string",
+          "example": "Pérez"
+        },
+        "imagenAsociada": {
+          "type": "string",
+          "example": "foto.jpg"
+        },
+        "fechaPublicacion": {
+          "type": "string",
+          "example": "2022-01-01"
+        },
+        "vigente": {
+          "type": "boolean",
+          "example": true
+        },
+        "empleado": {
+          "type": "object",
+          "properties": {
+            "nombre": {
+              "type": "string",
+              "example": "Juan"
+            },
+            "apellido": {
+              "type": "string",
+              "example": "Pérez"
+            },
+            "dni": {
+              "type": "string",
+              "example": "12345678"
+            },
+            "email": {
+              "type": "number",
+              "example": 12345
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,41 +1,39 @@
 const socio = require('./../../src/models/socio.model');
+const local = require('./../../src/models/local.model');
 const socioCtrl = {}
 
 socioCtrl.createSocio = async (req, res) => {
-    /*
-    #swagger.tags = ['Socio']
-    #swagger.summary = 'Agregar un socio'
-    #swagger.description = 'Agrega un socio a lista de socios.'
-    #swagger.consumes = ['application/json']
-    #swagger.parameters['body'] = {
-    in: 'body',
-    description: 'Datos del socio a agregar.',
-    required: true,
-    schema: { $ref: '#/definitions/Socio' }
-    }
-    #swagger.responses[200] = {
-    description: 'Socio agregado correctamente.',
-    schema: { $ref: '#/definitions/Socio' }
-    }
-    */
     try {
-        await socio.create(req.body);
+        const data = req.body;
+        if (data.local && data.local.id) {
+            data.localId = data.local.id;
+        }
+        await socio.create(data);
         res.json({ status: '1', msg: 'Socio agregado.' });
+
     } catch (error) {
+        console.log(error);
         res.status(400).json({ status: '0', msg: 'Error procesando operacion.' });
     }
 }
 
 socioCtrl.getSocios = async (req, res) => {
-    /*
-    #swagger.tags = ['Socio']
-    #swagger.summary = 'Obtener todos los socios'
-    #swagger.description = 'Retorna una lista de todos los socios.'
-    #swagger.responses[200] = {
-    description: 'Lista de socios obtenida con éxito.',
-    schema: { $ref: '#/definitions/Socio' }
+    try {
+        const socios = await socio.findAll(
+            {
+                include: [{
+                    model: local,
+                    as: 'local',
+                }]
+            }
+        );
+        res.status(200).json(socios);
+    } catch (error) {
+        res.status(500).json({ status: '0', msg: 'Error al obtener las publicaciones.' });
     }
-    */
+}
+/*
+socioCtrl.getSocios = async (req, res) => {
     try {
         const socios = await socio.findAll();
         res.status(200).json(socios);
@@ -43,6 +41,7 @@ socioCtrl.getSocios = async (req, res) => {
         res.status(500).json({ status: '0', msg: 'Error al obtener los socios.' });
     }
 }
+ */
 socioCtrl.deleteSocio = async (req, res) => {
     /*
     #swagger.tags = ['Socio']

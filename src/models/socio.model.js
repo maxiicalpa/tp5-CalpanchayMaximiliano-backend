@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('./../../config/database.js');
+const local = require('./local.model.js');
 const socio = sequelize.define('socio', {
     // Sequelize crea un campo 'id' autoincrementable automáticamente, no hace falta ponerlo
     nombre: { type: DataTypes.STRING, allowNull: false },
@@ -13,4 +14,8 @@ const socio = sequelize.define('socio', {
     tableName: 'socios', // Nombre de la tabla en minúsculas y plural
     timestamps: true, // Crea automáticamente los campos createdAt y updatedAt
 });
+
+
+socio.belongsTo(local, { foreignKey: 'localId', as: 'local' });
+
 module.exports = socio;
